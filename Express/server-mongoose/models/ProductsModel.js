@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const ProductsSchema = new mongoose.Schema({
-    title: { // Property/Filed title
+    name: { // Property/Filed title
         type: String, // Data type of the Property
         required: true // Nullable(false) or NotNullable(true) 
     },

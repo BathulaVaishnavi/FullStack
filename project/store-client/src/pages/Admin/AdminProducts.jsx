@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import AdminPageHeader from '../../components/Admin/AdminPageHeader'
 import { Loader2, Pencil, Trash, TriangleAlert } from 'lucide-react'
-import { getUsers } from '../../api/api'
+import { getProducts } from '../../api/api'
 
-
-
-const AdminUsers = () => {
-  const [users, setUsers] = useState(null)
+const AdminProducts = () => {
+  const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
     try {
-      const res = await getUsers()
+      const res = await getProducts()
       if (res.status === 200) {
-        setUsers(res.data)
+        setProducts(res.data)
       }
 
     } catch (error) {
@@ -27,7 +25,7 @@ const AdminUsers = () => {
   useEffect(() => {
     fetchData()
   }, [])
-  console.log(users)
+
   if (loading) {
     return (
       <>
@@ -37,13 +35,13 @@ const AdminUsers = () => {
       </>
     )
   }
-  if (!users || users.length === 0) {
+  if (!products || products.length === 0) {
     return (
       <>
         <div className='w-screen h-[90vh] flex flex-col justify-center items-center'>
           <TriangleAlert className='text-orange-400 h-12 w-12' />
           <p>
-            No Users Available !
+            No Products Available !
           </p>
         </div>
       </>
@@ -51,24 +49,22 @@ const AdminUsers = () => {
   }
   return (
     <div className='w-full h-full flex flex-col justify-start items-start'>
-      <AdminPageHeader title='Users' />
+      <AdminPageHeader title='Products' />
       <table className='w-full h-full border-collapse border shadow-lg rounded-md'>
         <thead className='shadow-sm font-bold text-purple-500 text-left'>
           <tr>
-            <th className='p-6'>Name</th>
-            <th className='p-6'>Email</th>
-            <th className='p-6'>Phone</th>
+            <th className='p-6'>Title</th>
+            <th className='p-6'>Price</th>
             <th className='p-6'>Actions</th>
           </tr>
         </thead>
         <tbody>
 
           {
-            users.map((user, index) => (
+            products.map((product, index) => (
               <tr key={index}>
-                <td className='p-4'>{user.name}</td>
-                <td className='p-4'>{user.email}</td>
-                <td className='p-4'>{user.phone} </td>
+                <td className='p-4'>{product.name} </td>
+                <td className='p-4'>{product.price}</td>
                 <td className='p-4 flex h-full w-full flex-row justify-start items-center gap-4'>
                   <button className='h-15 w-15 border-blue-500 border-2 p-1 rounded-md text-blue-500 shadow-md
                hover:bg-blue-500 hover:text-white hover:shadow-blue-500'>
@@ -88,4 +84,4 @@ const AdminUsers = () => {
   )
 }
 
-export default AdminUsers
+export default AdminProducts
